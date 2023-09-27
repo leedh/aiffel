@@ -17,28 +17,28 @@
     - 주석을 보고 코드 이해가 잘 되었는지 확인
         ```python
         # 그리드서치 계산해주는 함수
-def my_GridSearch(model, train, y, param_grid, verbose=2, n_jobs=5):
-    # GridSearchCV 모델로 초기화
-    grid_model = GridSearchCV(model, param_grid=param_grid, scoring='neg_mean_squared_error', \
+        def my_GridSearch(model, train, y, param_grid, verbose=2, n_jobs=5):
+        # GridSearchCV 모델로 초기화
+        grid_model = GridSearchCV(model, param_grid=param_grid, scoring='neg_mean_squared_error', \
                               cv=5, verbose=verbose, n_jobs=n_jobs)
     
-    # 모델 fitting
-    grid_model.fit(train, y)
+        # 모델 fitting
+        grid_model.fit(train, y)
 
-    # 결과값 저장
-    params = grid_model.cv_results_['params']
-    score = grid_model.cv_results_['mean_test_score']
+        # 결과값 저장
+        params = grid_model.cv_results_['params']
+        score = grid_model.cv_results_['mean_test_score']
     
-    # 데이터 프레임 생성
-    results = pd.DataFrame(params)
-    results['score'] = score
+        # 데이터 프레임 생성
+        results = pd.DataFrame(params)
+        results['score'] = score
     
-    # RMSLE 값 계산 후 정렬
-    results['RMSLE'] = np.sqrt(-1 * results['score'])
-    results = results.sort_values('RMSLE')
+        # RMSLE 값 계산 후 정렬
+        results['RMSLE'] = np.sqrt(-1 * results['score'])
+        results = results.sort_values('RMSLE')
 
-    return results
-    ```
+        return results
+        ```
         
 - [X]  **3. 에러가 난 부분을 디버깅하여 문제를 “해결한 기록을 남겼거나” 
 ”새로운 시도 또는 추가 실험을 수행”해봤나요?**
