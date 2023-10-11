@@ -11,9 +11,9 @@
     퀘스트 문제 요구조건 등을 지칭
         - 해당 조건을 만족하는 코드를 캡쳐해 근거로 첨부
         
-    1. pix2pix 모델 학습을 위해 필요한 데이터셋을 적절히 구축하였다. 데이터 분석 과정 및 한 가지 이상의 augmentation을 포함한 데이터셋 구축 과정이 체계적으로 제시되었다. -> O
-    2. pix2pix 모델을 구현하여 성공적으로 학습 과정을 진행하였다. U-Net generator, discriminator 모델 구현이 완료되어 train_step의 output을 확인하고 개선하였다. -> O
-    3. 학습 과정 및 테스트에 대한 시각화 결과를 제출하였다. 10 epoch 이상의 학습을 진행한 후 최종 테스트 결과에서 진행한 epoch 수에 걸맞은 정도의 품질을 확인하였다. -> O
+> 1. pix2pix 모델 학습을 위해 필요한 데이터셋을 적절히 구축하였다. 데이터 분석 과정 및 한 가지 이상의 augmentation을 포함한 데이터셋 구축 과정이 체계적으로 제시되었다. -> O
+> 2. pix2pix 모델을 구현하여 성공적으로 학습 과정을 진행하였다. U-Net generator, discriminator 모델 구현이 완료되어 train_step의 output을 확인하고 개선하였다. -> O
+> 3. 학습 과정 및 테스트에 대한 시각화 결과를 제출하였다. 10 epoch 이상의 학습을 진행한 후 최종 테스트 결과에서 진행한 epoch 수에 걸맞은 정도의 품질을 확인하였다. -> O
         
         
     
@@ -25,6 +25,8 @@
         - 잘 작성되었다고 생각되는 부분을 캡쳐해 근거로 첨부합니다.
         
     - 네 잘 달려 있습니다. 코드의 기능이 잘 적혀 있습니다.
+     
+```python
     @tf.function # 빠른 텐서플로 연산을 위해 @tf.function()을 사용합니다. 
 
     # 하나의 배치 크기만큼 데이터를 입력했을 때 가중치를 1회 업데이트하는 과정
@@ -39,7 +41,9 @@
         gene_loss, l1_loss = get_gene_loss(fake_colored, real_colored, fake_disc)
         gene_total_loss = gene_loss + (100 * l1_loss) # L1 손실 반영 lambda=100
         # Discrminator 손실 계산
-        
+```
+
+
 - [ ]  **3. 에러가 난 부분을 디버깅하여 문제를 “해결한 기록을 남겼거나” 
 ”새로운 시도 또는 추가 실험을 수행”해봤나요?**
     - 문제 원인 및 해결 과정을 잘 기록하였는지 확인
@@ -49,7 +53,7 @@
         
      - 원인과 해결과정은 따로 적혀 있지 않습니다.
      - 추가적으로 LOSS값을 시각화 하였습니다
-     
+```python
      # epoch에 따른 loss 시각화
     x_len = np.arange(len(history['l1_loss']))
     plt.plot(x_len, history['gen_loss'], marker='.', c='blue', label="Generator Loss")
@@ -61,6 +65,7 @@
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.show()
+```
         
 - [ ]  **4. 회고를 잘 작성했나요?**
     - 주어진 문제를 해결하는 완성된 코드 내지 프로젝트 결과물에 대해
@@ -70,7 +75,7 @@
         
     
     - 잘 적혀 있습니다    
-    ResNet에서 사용한 skip connection이 U-net에서도 쓰이는 걸 알았다. 생성모델에서도 쓰인다는 점이 신선했다. 그리고 단일 픽셀이 아닌 주변 픽셀까지 포함한 Patch를 계산해서 생성을 고려한다는 점을 배웠다. 코드 상에서는 epoch를 늘릴 수록 생성이미지의 품질이 그럴듯하게 바뀌는 과정이 신기했다.
+ > ResNet에서 사용한 skip connection이 U-net에서도 쓰이는 걸 알았다. 생성모델에서도 쓰인다는 점이 신선했다. 그리고 단일 픽셀이 아닌 주변 픽셀까지 포함한 Patch를 계산해서 생성을 고려한다는 점을 배웠다. 코드 상에서는 epoch를 늘릴 수록 생성이미지의 품질이 그럴듯하게 바뀌는 과정이 신기했다.
     -실행 플로우는 따로 그리지 않았습니다.
         
 - [ ]  **5. 코드가 간결하고 효율적인가요?**
@@ -80,6 +85,7 @@
         - 잘 작성되었다고 생각되는 부분을 캡쳐해 근거로 첨부합니다.
         
     - 네 모두 잘 준수하였습니다
+```python
     class Discriminator(Model):
     def __init__(self):
         super(Discriminator, self).__init__()
@@ -112,7 +118,7 @@
     def get_summary(self, x_shape=(256,256,3), y_shape=(256,256,3)):
         x, y = Input(x_shape), Input(y_shape) 
         return Model((x, y), self.call(x, y)).summary()
-
+```
 
 # 참고 링크 및 코드 개선
 ```
