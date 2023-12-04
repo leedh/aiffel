@@ -42,5 +42,5 @@
 
 # 참고 링크 및 코드 개선
 ```
-wider face dataset 분석: [Wider face dataset paper review](https://khyeyoon.github.io/face%20detection%20paper/WIDER_FACE/)
+# Wider face dataset paper review: <https://khyeyoon.github.io/face%20detection%20paper/WIDER_FACE/>
 ```
